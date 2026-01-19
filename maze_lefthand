@@ -1,0 +1,95 @@
+#无参数函数
+def build_maze():
+    plant(Entities.Bush)
+    substance = get_world_size() * 2**(num_unlocked(Unlocks.Mazes) - 1)
+    use_item(Items.Weird_Substance, substance)
+
+build_maze()
+
+if can_move(North):
+    x = "North"
+else:
+    x = "East"
+while True:
+    if get_entity_type() == Entities.Treasure:
+        harvest()
+        clear()
+        build_maze()
+        if can_move(North):
+            x = "North"
+        else:
+            x = "East"
+    
+    if can_move(North) and x == "North":
+        move(North)
+        while can_move(West) == False and can_move(North):
+            move(North)
+        if can_move(West):
+            x = "West"
+        elif can_move(East):
+            x = "East"
+        else:
+            x = "South"
+
+    if get_entity_type() == Entities.Treasure:
+        harvest()
+        clear()
+        build_maze()
+        if can_move(North):
+            x = "North"
+        else:
+            x = "East"   
+    
+    if can_move(West) and x == "West":
+        move(West)
+        while can_move(South) == False and can_move(West):
+            move(West)
+        if can_move(South):
+            x = "South"
+        elif can_move(North):
+            x = "North"
+        else:
+            x = "East"   
+
+    if get_entity_type() == Entities.Treasure:
+        harvest()
+        clear()
+        build_maze()
+        if can_move(North):
+            x = "North"
+        else:
+            x = "East"        
+
+    if can_move(South) and x == "South":
+        move(South)
+        while can_move(East) == False and can_move(South):
+            move(South)
+        if can_move(East):
+            x = "East"
+        elif can_move(West):
+            x = "West"
+        else:
+            x = "North"
+
+    if get_entity_type() == Entities.Treasure:
+        harvest()
+        clear()
+        build_maze()
+        if can_move(North):
+            x = "North"
+        else:
+            x = "East"
+        
+    if can_move(East) and x == "East":
+        move(East)
+        while can_move(North) == False and can_move(East):
+            move(East)
+        if can_move(North):
+            x = "North"
+        elif can_move(South):
+            x = "South"
+        else:
+            x = "West"
+
+
+#Maze伪代码：沿着左边走，能左拐就左拐。一开始左边一定有墙，所以一开始向北走，向北走一步就试着向西走一步，如果一直不能向西就一直向北（走到不能再向北就开始向东一步,如果不能往东就往南一步）。

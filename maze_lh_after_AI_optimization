@@ -1,0 +1,46 @@
+
+# 1. 定义方向列表（顺时针顺序很重要：北->东->南->西）
+# 这样：左转 = (i-1)，右转 = (i+1)，掉头 = (i+2)
+dirs = [North, East, South, West]
+current_dir = 0 # 初始朝向：索引0代表North
+
+def build_maze():
+    clear()
+    plant(Entities.Bush)
+    # 动态计算需要的材料数量
+    substance = get_world_size() * 2**(num_unlocked(Unlocks.Mazes) - 1)
+    use_item(Items.Weird_Substance, substance)
+
+# 初始生成
+build_maze()
+
+while True:
+    # --- 宝藏检测逻辑 (统一放在最前面) ---
+    if get_entity_type() == Entities.Treasure:
+        harvest()
+        build_maze()
+        current_dir = 0 # 重置方向为北（可选）
+    
+    # --- 核心移动逻辑：左手定则 ---
+    # 优先级：左转 > 直行 > 右转 > 掉头
+    
+    # 1. 尝试向左转 (当前方向索引 - 1)
+    # (current_dir + 3) % 4 等同于 -1，即逆时针一位
+    left_idx = (current_dir + 3) % 4
+    if move(dirs[left_idx]):
+        current_dir = left_idx
+        continue # 移动成功，进入下一次循环
+
+    # 2. 尝试直行 (保持当前方向)
+    if move(dirs[current_dir]):
+        # 方向不变
+        continue 
+        
+    # 3. 尝试向右转 (当前方向索引 + 1)
+    right_idx = (current_dir + 1) % 4
+    if move(dirs[right_idx]):
+        current_dir = right_idx
+        continue
+        
+    # 4. 死胡同，掉头 (当前方向索引 + 2)
+    current_dir = (current_dir + 2) % 4
