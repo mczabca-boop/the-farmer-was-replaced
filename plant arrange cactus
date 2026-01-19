@@ -1,0 +1,44 @@
+while True:
+    for p in range(get_world_size()):
+        for l in range(get_world_size()):
+            if get_ground_type() == Grounds.Soil:
+                plant(Entities.Cactus)
+                move(East)
+            else:
+                till()
+                plant(Entities.Cactus)
+                move(East)
+        move(North)
+
+    for j in range(get_world_size()):
+        for i in range(get_world_size() - 1):
+            a = measure()
+            for k in range(get_world_size()):
+                move(East)
+                if measure() < a:
+                    swap(West)
+                else:
+                    a = measure()
+        move(North)
+    
+    for j in range(get_world_size()):
+        for i in range(get_world_size() - 1):
+            a = measure()
+            for k in range(get_world_size()):
+                move(North)
+                if measure() < a:
+                    swap(South)
+                else:
+                    a = measure()
+        move(East)
+    
+    while get_pos_x() < get_world_size() - 1:
+            move(East)
+    while get_pos_y() < get_world_size() - 1:
+            move(North)
+    harvest()
+    
+    while get_pos_x() > 0:
+            move(West)
+    while get_pos_y() > 0:
+            move(South)

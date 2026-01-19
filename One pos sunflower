@@ -1,0 +1,6 @@
+#constant harvest sunflower one position
+while True:
+    if can_harvest():
+        harvest()
+        plant(Entities.Sunflower)
+        use_item(Items.Water)

@@ -1,0 +1,20 @@
+while True:
+    dp = 1
+    while dp == 1:
+        dp = 0
+        for j in range(get_world_size()):
+            for i in range(get_world_size()):
+                if get_entity_type() == Entities.Dead_Pumpkin:
+                    use_item(Items.Water)
+                    dp = 1 
+                if get_ground_type() == Grounds.Soil:
+                    plant(Entities.Pumpkin)
+                    move(East)
+                else:
+                    till()
+                    plant(Entities.Pumpkin)
+                    move(East)
+            move(North)
+    harvest()
+        
+        

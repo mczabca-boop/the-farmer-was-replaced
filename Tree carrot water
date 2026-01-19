@@ -1,0 +1,31 @@
+while True:
+    #water all spot
+    for p in range(get_world_size()):
+        for l in range(get_world_size()):
+            use_item(Items.Water)
+            move(East)
+        move(North)
+    
+    
+    for k in range(get_world_size()*10):    
+            #plant
+            if get_entity_type() == Entities.Grass:
+                for i in range(get_world_size()/2):
+                    plant(Entities.Tree)
+                    move(East)
+                    if get_entity_type() == Entities.Grass:
+                        till()
+                        plant(Entities.Carrot)
+                    else:
+                        plant(Entities.Carrot)
+                    move(East)
+                move(North)
+                move(East)
+            #harvest all
+            else:
+                for j in range(get_world_size()):
+                    if can_harvest():
+                        harvest()
+                    move(East)
+                move(North)
+                

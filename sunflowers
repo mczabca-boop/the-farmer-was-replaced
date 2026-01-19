@@ -1,0 +1,62 @@
+for i in range(get_world_size()):
+    use_item(Items.Water)
+    if get_ground_type() == Grounds.Soil:
+        plant(Entities.Sunflower)
+        move(East)
+    else:
+        till()
+        plant(Entities.Sunflower)
+        move(East)
+move(North)
+for i in range(get_world_size()):
+    use_item(Items.Water)
+    if get_ground_type() == Grounds.Soil:
+        plant(Entities.Sunflower)
+        move(East)
+    else:
+        till()
+        plant(Entities.Sunflower)
+        move(East)
+move(South)
+
+while True:        
+    pn = measure()
+    for i in range(get_world_size()):
+        if measure() > pn:
+            pn = measure()
+            ax = get_pos_x()
+            by = get_pos_y()
+            move(East)
+        else:
+            move(East)
+    move(North)
+    for i in range(get_world_size()):
+        if measure() > pn:
+            pn = measure()
+            ax = get_pos_x()
+            by = get_pos_y()
+            move(East)
+        else:
+            move(East)
+    move(South)
+    
+    
+    while get_pos_x() < ax:
+        move(East)
+    while get_pos_x() > ax:
+        move(West)
+    while get_pos_y() < by:
+        move(North)
+    while get_pos_y() > by:
+        move(South)
+    if can_harvest():
+        harvest()
+    if get_entity_type() == Entities.Sunflower:
+        move(West)
+    else:
+        plant(Entities.Sunflower)
+        use_item(Items.Water)
+    while get_pos_x() > 0:
+        move(West)
+    while get_pos_y() > 0:
+        move(South)
