@@ -1,0 +1,64 @@
+while True:
+    clear()
+    change_hat(Hats.Dinosaur_Hat)
+    while True:
+        a=get_pos_x()
+        b=get_pos_y()
+        if get_entity_type() == Entities.Apple:
+            (x,y)=measure()
+        while get_pos_x() > x:
+            if can_move(West)==True:
+                move(West)
+            elif get_pos_y()==y:
+                if can_move(North)==True:
+                    move(North)
+                elif can_move(South)==True:
+                    move(South)
+                else:
+                    break
+            else:
+                break
+        while get_pos_y() > y:
+            if can_move(South)==True:
+                move(South)
+            elif get_pos_x()==x:
+                if can_move(West)==True:
+                    move(West)
+                elif can_move(East)==True:
+                    move(East)
+                else:
+                    break
+            else:
+                break
+    
+        while get_pos_x() < x:
+            if can_move(East)==True:
+                move(East)
+            elif get_pos_y()==y:
+                if can_move(North)==True:
+                    move(North)
+                elif can_move(South)==True:
+                    move(South)
+                else:
+                    break
+            else:
+                break
+        
+        while get_pos_y() < y:
+            if can_move(North)==True:
+                move(North)
+            elif get_pos_x()==x:
+                if can_move(West)==True:
+                    move(West)
+                elif can_move(East)==True:
+                    move(East)
+                else:
+                    break
+            else:
+                break
+        if get_pos_x()==a and get_pos_y()==b:
+            break
+        
+
+    
+          
